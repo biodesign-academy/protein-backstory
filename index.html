@@ -129,6 +129,10 @@
   #ledgerTable td{min-width:90px;max-width:260px;padding:7px 10px;border-bottom:1px solid var(--hair);vertical-align:top}
   #ledgerTable td.no{color:var(--salmon-deep)}
   @media (max-width:640px){.trio{grid-template-columns:1fr}.trio > div + div{padding-left:0;border-left:0;border-top:1px solid var(--hair)}}
+  .howlist{margin:4px 0 0;padding-left:22px;font:400 15px/1.6 var(--sans)}
+  .howlist li{margin:0 0 10px;padding-left:4px}
+  .howlist li::marker{font:600 13px var(--mono);color:var(--slate)}
+  .howlist strong{font-weight:600}
   .status{font:14px/1.5 var(--sans);margin-top:12px;color:var(--slate)}
   .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
   .actions.end{border-top:1px solid var(--ink);padding-top:18px;margin-top:4px}
@@ -287,7 +291,7 @@
 <header>
   <h1>Protein <em>Backstory</em></h1>
   <p class="sub">Where your protein came from, and who it's owed to.</p>
-  <p class="intro">Every protein in a public database came from a living thing, a place and, often, people who knew it long before science did. The database rarely tells you. Protein Backstory reads what the records do say and turns it into a card you can link, cite and pin to your work, with nothing to fill in.</p>
+  <p class="intro">Every protein in a public database came from a living thing, a place and, often, people who knew it long before science did. The database rarely tells you. Protein Backstory reads what the records do say and turns it into a card you can link, cite and pin to your work, with nothing to fill in. <a href="#howSec">How it works</a>.</p>
   <p class="paper"><span class="paper-k">The paper</span> <a href="https://doi.org/10.5281/zenodo.24441516">Protein Backstory: Provenance Notes for Biodesigners</a> <span class="paper-doi">doi:10.5281/zenodo.24441516</span></p>
 </header>
 
@@ -401,6 +405,18 @@
       <div class="actions"><button id="ledgerDl">Download the ledger (CSV)</button></div>
       <p class="small">Opens in Excel, Numbers or Google Sheets. Keep it with the project; re-run it later to see what has changed.</p>
     </div>
+  </section>
+
+  <section class="card how" id="howSec" aria-labelledby="howTitle">
+    <p class="eyebrow">Under the hood</p>
+    <h2 id="howTitle">How it works</h2>
+    <ol class="howlist">
+      <li><strong>Finding your protein.</strong> Words you type are sent as a search to UniProt, the public protein database. Entries checked by a curator are listed first.</li>
+      <li><strong>Reading the records.</strong> The tool opens the UniProt entry and follows its links to the matching DNA or RNA record in the European Nucleotide Archive. That record is where the collection place, date and submitting institution are written, if anyone wrote them. For a single card it also asks Europe PMC for papers that mention the record.</li>
+      <li><strong>Writing the card.</strong> Each line is put together by fixed rules from those records. No AI model writes or guesses anything. "Not recorded" means the field is empty in the public record, not that the answer is unknown to everyone.</li>
+      <li><strong>Where it runs.</strong> Everything happens in your browser, straight between you and the public databases. Nothing is sent to or stored by Biodesign Academy. A card link reads the records afresh each time it opens, so a card can change if the records do.</li>
+      <li><strong>Its limits.</strong> It reads up to five linked nucleotide records per protein (three in a ledger, which also skips Europe PMC to stay fast). Institution names are shortened from the submitter's address. It flags gaps; it does not give legal advice.</li>
+    </ol>
   </section>
 
   <aside class="question"><p class="eyebrow">One question to carry</p><p class="q">Who knew this living matter before the database did?</p></aside>

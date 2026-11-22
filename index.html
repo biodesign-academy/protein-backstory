@@ -4,6 +4,20 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Protein Backstory · Biodesign Academy</title>
+<meta name="description" content="Free tool for designers working with living matter. Paste a UniProt protein ID and draft a provenance note: where the protein came from, who recorded it, what is missing, and who it may be owed to.">
+<link rel="canonical" href="https://biodesign-academy.github.io/protein-backstory/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Biodesign Academy">
+<meta property="og:title" content="Protein Backstory: where your protein came from, and who it's owed to">
+<meta property="og:description" content="Free tool for designers working with living matter. Paste a UniProt protein ID and draft a provenance note: where the protein came from, who recorded it, what is missing, and who it may be owed to.">
+<meta property="og:url" content="https://biodesign-academy.github.io/protein-backstory/">
+<meta property="og:image" content="https://biodesign-academy.github.io/protein-backstory/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="author" content="Raphael Kim, Biodesign Academy">
+<link rel="icon" href="favicon.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Protein Backstory","url":"https://biodesign-academy.github.io/protein-backstory/","description":"Free tool for designers working with living matter. Paste a UniProt protein ID and draft a provenance note: where the protein came from, who recorded it, what is missing, and who it may be owed to.","applicationCategory":"ResearchApplication","operatingSystem":"Any (web browser)","softwareVersion":"0.2","license":"https://opensource.org/licenses/MIT","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"},"author":{"@type":"Person","name":"Raphael Kim","identifier":"https://orcid.org/0000-0002-0777-0134"},"publisher":{"@type":"Organization","name":"Biodesign Academy","url":"https://www.biodesign.academy","sameAs":["https://github.com/biodesign-academy"]},"sameAs":["https://github.com/biodesign-academy/protein-backstory"],"citation":{"@type":"ScholarlyArticle","name":"Protein Backstory: Provenance Notes for Biodesigners","identifier":"https://doi.org/10.5281/zenodo.24441516"}}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;600;700&family=Inter:wght@400;500&family=Fraunces:ital,opsz,wght@1,9..144,400;1,9..144,500&display=swap" rel="stylesheet">
@@ -101,7 +115,7 @@
 </style>
 </head>
 <body>
-<div class="spec"><span>Biodesign Academy</span><span><span class="seed" aria-hidden="true"></span>Free tool · v0.1</span></div>
+<div class="spec"><span>Biodesign Academy</span><span><span class="seed" aria-hidden="true"></span>Free tool · v0.2</span></div>
 
 <div class="hero">
 <svg class="hero-art" viewBox="0 0 1200 440" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="heroTitle heroDesc" preserveAspectRatio="xMidYMid slice">
@@ -286,8 +300,8 @@
 </main>
 
 <footer>
-  <p class="small">Method: Kim, R. (2026). <em>Protein Backstory: Provenance Notes for Biodesigners</em> (v1.0). Zenodo. <a href="https://doi.org/10.5281/zenodo.24441516">doi:10.5281/zenodo.24441516</a>. Data from UniProt (CC BY 4.0) and the European Nucleotide Archive, fetched live in your browser; nothing is sent to Biodesign Academy. Not legal advice: it does not decide whether any use is permitted.</p>
-  <div class="spec foot"><span>Protein Backstory · v0.1 · November 2026</span><a href="https://biodesign.academy">biodesign.academy</a></div>
+  <p class="small">Method: Kim, R. (2026). <em>Protein Backstory: Provenance Notes for Biodesigners</em> (v1.0). Zenodo. <a href="https://doi.org/10.5281/zenodo.24441516">doi:10.5281/zenodo.24441516</a>. Data from UniProt (CC BY 4.0), the European Nucleotide Archive and Europe PMC, fetched live in your browser; nothing is sent to Biodesign Academy. Not legal advice: it does not decide whether any use is permitted.</p>
+  <div class="spec foot"><span>Protein Backstory · v0.2 · November 2026</span><a href="https://biodesign.academy">biodesign.academy</a></div>
 </footer>
 
 <script>
@@ -327,6 +341,42 @@ async function enaLookup(acc){
   return null; // could not reach
 }
 
+async function enaEmbl(acc){
+  try{
+    const r = await fetch("https://www.ebi.ac.uk/ena/browser/api/embl/" + encodeURIComponent(acc) + "?lineLimit=120");
+    if(!r.ok) return null;
+    const lines = (await r.text()).split("\n");
+    const out = { submitted:"", institution:"", pubmed:[], doi:[] };
+    let inSub = false;
+    for(const l of lines){
+      const tag = l.slice(0,2), body = l.slice(5).trim();
+      if(tag === "RN"){ inSub = false; }
+      if(tag === "RX"){
+        const m = body.match(/^(PUBMED|DOI);\s*([^.\s][^\s]*?)\.?$/);
+        if(m){ (m[1]==="PUBMED" ? out.pubmed : out.doi).push(m[2]); }
+      }
+      if(tag === "RL"){
+        const s = body.match(/^Submitted \(([^)]+)\) to the INSDC\.?\s*(.*)$/);
+        if(s && !out.submitted){ out.submitted = s[1]; out.institution = s[2] || ""; inSub = true; continue; }
+        if(inSub){ out.institution += (out.institution ? " " : "") + body; }
+      }
+      if(tag === "FH" || tag === "FT" || tag === "SQ") break;
+    }
+    out.institution = out.institution.replace(/\s+/g," ").replace(/\.$/,"").trim();
+    return out;
+  }catch(e){ return null; }
+}
+
+async function epmcMentions(acc){
+  try{
+    const q = "ACCESSION_ID:" + acc + " AND ACCESSION_TYPE:gen";
+    const r = await fetch("https://www.ebi.ac.uk/europepmc/webservices/rest/search?format=json&pageSize=5&query=" + encodeURIComponent(q));
+    if(!r.ok) return null;
+    const j = await r.json();
+    return { n:j.hitCount||0, items:(j.resultList?.result||[]).map(x => ({ title:(x.title||"").replace(/\.$/,""), year:x.pubYear||"", pmid:x.pmid||"", id:x.id, src:x.source })) };
+  }catch(e){ return null; }
+}
+
 function proteinName(e){
   const d = e.proteinDescription || {};
   return d.recommendedName?.fullName?.value || d.submissionNames?.[0]?.fullName?.value || d.alternativeNames?.[0]?.fullName?.value || "Unnamed protein";
@@ -350,6 +400,7 @@ async function run(){
     $("status").textContent = embl.length ? "Following the trail to the nucleotide record" + (embl.length>1?"s":"") + "…" : "";
     const ena = [];
     for(const n of embl){ ena.push({ ...n, rec: await enaLookup(n.id) }); }
+    if(ena.length){ $("status").textContent = "Reading who submitted the record, and papers that mention it…"; ena[0].embl = await enaEmbl(ena[0].id); ena[0].epmc = await epmcMentions(ena[0].id); }
     D = { acc, e, name:proteinName(e), embl:ena, pdb, afdb, refs, date:today() };
     render();
     $("status").textContent = "";
@@ -400,7 +451,20 @@ function facts(){
       : `${who}${c.publicationDate ? " ("+c.publicationDate+")" : ""}. ${c.title || ""} ${c.journal ? c.journal : ""}. `;
   });
   if(!D.refs.length) f3 = "No references listed in the entry. ";
-  if(!pubs.length){ f3 += "The entry cites no journal publication."; gaps.push("No journal publication describing how or where the sample was obtained."); }
+  const n0 = D.embl[0] || {}, em = n0.embl, ep = n0.epmc;
+  let ntPubs = 0;
+  if(em){
+    if(em.submitted) f3 += `The nucleotide record ${n0.id} was submitted on ${em.submitted}${em.institution ? " from "+em.institution : ""}. `;
+    ntPubs = em.pubmed.length + em.doi.length;
+    if(ntPubs) f3 += `It cites ${[...em.pubmed.map(p=>"PubMed "+p), ...em.doi.map(d=>"doi:"+d)].join("; ")}. `;
+  }
+  if(!pubs.length && !ntPubs){
+    f3 += "Neither record cites a journal publication describing the sample.";
+    gaps.push("No publication is linked as the source of the sample, so how and where it was obtained is not described.");
+  } else if(!pubs.length){ f3 += "The UniProt entry itself cites no journal publication."; }
+  if(ep && ep.n){
+    f3 += ` ${ep.n} later paper${ep.n>1?"s":""} in Europe PMC mention${ep.n>1?"":"s"} ${n0.id}: ` + ep.items.map(x => `"${x.title}" (${x.year}${x.pmid ? ", PubMed "+x.pmid : ""})`).join("; ") + ". These are leads: they may discuss the sequence without describing where it was collected.";
+  }
 
   const f5 = `UniProt entry ${D.acc}${D.afdb ? ", AlphaFold Database prediction" : ""}.`;
 
@@ -435,7 +499,7 @@ function noteText(){
   const F = D.F, o = D.e.organism || {};
   const v = id => $(id).value.trim();
   return `# Protein provenance note: ${D.name} (${D.acc})
-Drafted ${D.date} with Protein Backstory v0.1 (Biodesign Academy, raphael-biodesign.github.io/protein-backstory). Method: Kim, R. (2026). Protein Backstory: Provenance Notes for Biodesigners. Zenodo. https://doi.org/10.5281/zenodo.24441516. Fields 1, 2, 3, 6 and 8 are drawn from public records; fields 4 and 7 are written by a person.
+Drafted ${D.date} with Protein Backstory v0.2 (Biodesign Academy, biodesign-academy.github.io/protein-backstory). Method: Kim, R. (2026). Protein Backstory: Provenance Notes for Biodesigners. Zenodo. https://doi.org/10.5281/zenodo.24441516. Fields 1, 2, 3, 6 and 8 are drawn from public records; fields 4 and 7 are written by a person.
 
 1. The sequence. ${F.f1}
 

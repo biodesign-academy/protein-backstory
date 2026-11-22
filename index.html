@@ -17,7 +17,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="author" content="Raphael Kim, Biodesign Academy">
 <link rel="icon" href="favicon.png">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Protein Backstory","url":"https://biodesign-academy.github.io/protein-backstory/","description":"Free tool for designers working with living matter. Paste a UniProt protein ID and draft a provenance note: where the protein came from, who recorded it, what is missing, and who it may be owed to.","applicationCategory":"ResearchApplication","operatingSystem":"Any (web browser)","softwareVersion":"0.2","license":"https://opensource.org/licenses/MIT","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"},"author":{"@type":"Person","name":"Raphael Kim","identifier":"https://orcid.org/0000-0002-0777-0134"},"publisher":{"@type":"Organization","name":"Biodesign Academy","url":"https://www.biodesign.academy","sameAs":["https://github.com/biodesign-academy"]},"sameAs":["https://github.com/biodesign-academy/protein-backstory"],"citation":{"@type":"ScholarlyArticle","name":"Protein Backstory: Provenance Notes for Biodesigners","identifier":"https://doi.org/10.5281/zenodo.24441516"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Protein Backstory","url":"https://biodesign-academy.github.io/protein-backstory/","description":"Free tool for designers working with living matter. Paste a UniProt protein ID and draft a provenance note: where the protein came from, who recorded it, what is missing, and who it may be owed to.","applicationCategory":"ResearchApplication","operatingSystem":"Any (web browser)","softwareVersion":"0.3","license":"https://opensource.org/licenses/MIT","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"},"author":{"@type":"Person","name":"Raphael Kim","identifier":"https://orcid.org/0000-0002-0777-0134"},"publisher":{"@type":"Organization","name":"Biodesign Academy","url":"https://www.biodesign.academy","sameAs":["https://github.com/biodesign-academy"]},"sameAs":["https://github.com/biodesign-academy/protein-backstory"],"citation":{"@type":"ScholarlyArticle","name":"Protein Backstory: Provenance Notes for Biodesigners","identifier":"https://doi.org/10.5281/zenodo.24441516"}}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;600;700&family=Inter:wght@400;500&family=Fraunces:ital,opsz,wght@1,9..144,400;1,9..144,500&display=swap" rel="stylesheet">
@@ -97,6 +97,38 @@
   .res button{grid-row:1 / span 2;grid-column:2}
   .results .more{font:14px/1.5 var(--sans);color:var(--slate);margin:12px 0 0}
   @media (max-width:640px){.res{grid-template-columns:1fr}.res button{grid-row:3;grid-column:1;justify-self:start;margin-top:6px}}
+  .mono{font-family:var(--mono)}
+  .bcard h2{margin-bottom:4px}
+  .cmeta{font:14px/1.5 var(--sans);color:var(--slate);margin:0 0 18px}
+  .cmeta .badge{font:500 11px/1.7 var(--sans);border:1px solid var(--hair);padding:0 7px;border-radius:4px;margin-left:4px}
+  .cmeta .badge.rev{background:var(--lime);border-color:var(--ink)}
+  .trio{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin:0;border-top:1px solid var(--ink)}
+  .trio > div{padding:14px 18px 16px 0}
+  .trio > div + div{padding-left:18px;border-left:1px solid var(--hair)}
+  .trio dt{font:500 11px/1.4 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--slate);margin-bottom:6px}
+  .trio dd{margin:0;font:400 16px/1.5 var(--sans)}
+  .trio dd ul{margin:6px 0 0;padding-left:18px;font-size:14px;color:var(--slate)}
+  .take{margin-top:8px;padding:18px;background:var(--stock2);border:1px solid var(--hair);border-radius:6px}
+  .take .tk{font:600 15px/1.3 var(--mono);margin:0 0 12px}
+  .take .lab{display:block;font:500 11px/1.4 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--slate);margin-bottom:4px}
+  .credit p{margin:0 0 14px;font:400 15px/1.55 var(--sans);background:var(--stock);border:1px solid var(--hair);padding:10px 12px;border-radius:4px}
+  .badgewrap{margin-bottom:6px}
+  .badgewrap img{height:24px;max-width:100%;object-fit:contain;object-position:left;display:block}
+  .take .where{margin:12px 0 0}
+  .extra{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 20px;margin-top:16px;font:500 14px/1.4 var(--sans)}
+  .extra a.lead{color:var(--ink)}
+  button.link{background:none;border:0;padding:0;color:var(--ink);text-decoration:underline;text-underline-offset:4px;font:500 14px/1.4 var(--sans);cursor:pointer}
+  label.filebtn{display:inline-flex;align-items:center;cursor:pointer;margin:0;border:1px solid var(--ink);border-radius:4px;padding:10px 14px;font:500 14px/1 var(--sans);color:var(--ink);background:transparent}
+  label.filebtn input{position:absolute;opacity:0;width:1px;height:1px}
+  label.filebtn:focus-within{outline:2px solid var(--salmon-deep);outline-offset:2px}
+  #ledgerIn{min-height:84px}
+  .lsum{font:600 16px/1.45 var(--mono);margin:16px 0 10px}
+  .tablewrap{overflow-x:auto;border:1px solid var(--hair);border-radius:4px;max-height:420px}
+  #ledgerTable{border-collapse:collapse;width:100%;font:13px/1.4 var(--sans)}
+  #ledgerTable th{position:sticky;top:0;background:var(--stock2);text-align:left;font:500 11px/1.3 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--slate);padding:8px 10px;border-bottom:1px solid var(--ink);white-space:nowrap}
+  #ledgerTable td{min-width:90px;max-width:260px;padding:7px 10px;border-bottom:1px solid var(--hair);vertical-align:top}
+  #ledgerTable td.no{color:var(--salmon-deep)}
+  @media (max-width:640px){.trio{grid-template-columns:1fr}.trio > div + div{padding-left:0;border-left:0;border-top:1px solid var(--hair)}}
   .status{font:14px/1.5 var(--sans);margin-top:12px;color:var(--slate)}
   .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
   .actions.end{border-top:1px solid var(--ink);padding-top:18px;margin-top:4px}
@@ -137,7 +169,7 @@
 </style>
 </head>
 <body>
-<div class="spec"><a class="back" href="https://biodesign-academy.github.io/"><img src="https://biodesign-academy.github.io/logo.png" alt="" width="22" height="22"><span class="arr" aria-hidden="true">←</span> <span class="lbl">Open tools and papers</span></a><span><span class="seed" aria-hidden="true"></span>Free tool · v0.2</span></div>
+<div class="spec"><a class="back" href="https://biodesign-academy.github.io/"><img src="https://biodesign-academy.github.io/logo.png" alt="" width="22" height="22"><span class="arr" aria-hidden="true">←</span> <span class="lbl">Open tools and papers</span></a><span><span class="seed" aria-hidden="true"></span>Free tool · v0.3</span></div>
 
 <div class="hero">
 <svg class="hero-art" viewBox="0 0 1200 440" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="heroTitle heroDesc" preserveAspectRatio="xMidYMid slice">
@@ -255,15 +287,15 @@
 <header>
   <h1>Protein <em>Backstory</em></h1>
   <p class="sub">Where your protein came from, and who it's owed to.</p>
-  <p class="intro">Every protein in a public database came from a living thing, a place and, often, people who knew it long before science did. The database rarely tells you. Protein Backstory gathers what the records do say, shows what is missing, and leaves room for what only you can add.</p>
+  <p class="intro">Every protein in a public database came from a living thing, a place and, often, people who knew it long before science did. The database rarely tells you. Protein Backstory reads what the records do say and turns it into a card you can link, cite and pin to your work, with nothing to fill in.</p>
   <p class="paper"><span class="paper-k">The paper</span> <a href="https://doi.org/10.5281/zenodo.24441516">Protein Backstory: Provenance Notes for Biodesigners</a> <span class="paper-doi">doi:10.5281/zenodo.24441516</span></p>
 </header>
 
 <main>
   <ol class="steps" aria-label="How it works">
     <li><span class="n">01</span><strong>Name your protein</strong><span>Type it in plain words, like spider silk, or paste a UniProt ID if you have one.</span></li>
-    <li><span class="n">02</span><strong>Read the record</strong><span>We fetch what the public databases say, and list what they leave out.</span></li>
-    <li><span class="n">03</span><strong>Add what only you can</strong><span>Who knew it first, and what goes back. Then keep the note.</span></li>
+    <li><span class="n">02</span><strong>Get its card</strong><span>Where it came from, who recorded it, what is missing. With a link, a credit line and a badge to paste anywhere.</span></li>
+    <li><span class="n">03</span><strong>Many proteins?</strong><span>Paste a list or drop a file and get a ledger: one spreadsheet, filled in for you.</span></li>
   </ol>
 
   <section class="card" aria-labelledby="findTitle">
@@ -274,7 +306,7 @@
       <input id="acc" placeholder="for example spider silk, mussel glue, or Q6QZR3" autocomplete="off">
       <button id="go">Find</button>
     </div>
-    <p class="small help">No ID needed: type what you know in plain words. If you already have a UniProt ID (a short code such as Q6QZR3), paste it and the note is drafted straight away.</p>
+    <p class="small help">No ID needed: type what you know in plain words. If you already have a UniProt ID (a short code such as Q6QZR3), paste it and the card appears straight away.</p>
     <div class="tries" aria-label="Try a search"><span class="small">Try:</span>
       <button class="chip" data-q="spider silk">spider silk</button>
       <button class="chip" data-q="mussel foot protein">mussel glue</button>
@@ -286,8 +318,35 @@
     <div class="status" id="status" role="status"></div>
   </section>
 
+  <section class="card bcard" id="cardSec" hidden aria-labelledby="cardTitle">
+    <p class="eyebrow">02 · Its backstory</p>
+    <h2 id="cardTitle"></h2>
+    <p class="cmeta" id="cardMeta"></p>
+    <dl class="trio">
+      <div><dt>Where it came from</dt><dd id="cWhere"></dd></div>
+      <div><dt>Who recorded it</dt><dd id="cWho"></dd></div>
+      <div><dt>What's missing</dt><dd id="cMiss"></dd></div>
+    </dl>
+    <div class="take">
+      <p class="tk">Take it with you</p>
+      <div class="credit"><span class="lab">Credit line</span><p id="credit"></p></div>
+      <div class="badgewrap"><span class="lab">Badge</span><img id="badgeImg" alt=""></div>
+      <div class="actions">
+        <button id="copyLink">Copy link to this card</button>
+        <button class="ghost" id="copyCredit">Copy credit line</button>
+        <button class="ghost" id="dlBadge">Download badge</button>
+        <button class="ghost" id="dlNote">Download full note</button>
+      </div>
+      <p class="small where">Paste the link or credit line next to your protein wherever it appears: a crit, a slide, an exhibition label, a product file, a paper. The link always opens this card.</p>
+    </div>
+    <div class="extra">
+      <a class="lead" id="leadLink" target="_blank" rel="noopener">Know something about where it came from? Add a lead <span aria-hidden="true">↗</span></a>
+      <button class="link" id="openNote">Write a fuller note (optional)</button>
+    </div>
+  </section>
+
   <section class="card" id="noteCard" hidden aria-labelledby="noteTitle">
-    <p class="eyebrow">02 · Read and complete</p>
+    <p class="eyebrow">Optional · A fuller note</p>
     <h2 id="noteTitle">Provenance note</h2>
     <div class="field"><span class="n">1</span><div><h3>The sequence <span class="auto">from the records</span></h3><div id="f1"></div></div></div>
     <div class="field"><span class="n">2</span><div><h3>The organism <span class="auto">from the records</span></h3><div id="f2"></div></div></div>
@@ -316,7 +375,7 @@
   </section>
 
   <section class="card" id="outCard" hidden aria-labelledby="outTitle">
-    <p class="eyebrow">03 · Keep it</p>
+    <p class="eyebrow">Your note</p>
     <h2 id="outTitle">Your note</h2>
     <pre id="out"></pre>
     <div class="actions">
@@ -325,12 +384,31 @@
     </div>
   </section>
 
+  <section class="card" id="ledgerSec" aria-labelledby="ledgerTitle">
+    <p class="eyebrow">03 · Many proteins</p>
+    <h2 id="ledgerTitle">Make a ledger</h2>
+    <p class="small">For a project, a studio library or a company portfolio. Paste UniProt IDs (any format, one or many per line), or drop a text, CSV or FASTA file. You get one spreadsheet, filled in from the records, with a link to each protein's card. Up to 100 proteins at a time.</p>
+    <label for="ledgerIn">UniProt IDs</label>
+    <textarea id="ledgerIn" placeholder="Q6QZR3, P19837, P42212"></textarea>
+    <div class="actions">
+      <label class="filebtn ghost">Or choose a file<input type="file" id="ledgerFile" accept=".txt,.csv,.tsv,.fasta,.fa,.faa,text/plain"></label>
+      <button class="lime" id="ledgerGo">Make the ledger</button>
+    </div>
+    <div class="status" id="ledgerStatus" role="status"></div>
+    <div id="ledgerOut" hidden>
+      <p class="lsum" id="ledgerSum"></p>
+      <div class="tablewrap"><table id="ledgerTable"></table></div>
+      <div class="actions"><button id="ledgerDl">Download the ledger (CSV)</button></div>
+      <p class="small">Opens in Excel, Numbers or Google Sheets. Keep it with the project; re-run it later to see what has changed.</p>
+    </div>
+  </section>
+
   <aside class="question"><p class="eyebrow">One question to carry</p><p class="q">Who knew this living matter before the database did?</p></aside>
 </main>
 
 <footer>
   <p class="small">Method: Kim, R. (2026). <em>Protein Backstory: Provenance Notes for Biodesigners</em> (v1.0). Zenodo. <a href="https://doi.org/10.5281/zenodo.24441516">doi:10.5281/zenodo.24441516</a>. Data from UniProt (CC BY 4.0), the European Nucleotide Archive and Europe PMC, fetched live in your browser; nothing is sent to Biodesign Academy. Not legal advice: it does not decide whether any use is permitted.</p>
-  <div class="spec foot"><span>Protein Backstory · v0.2 · November 2026</span><span class="fl"><a href="https://biodesign-academy.github.io/">← All open tools and papers</a><a href="https://www.biodesign.academy">biodesign.academy</a></span></div>
+  <div class="spec foot"><span>Protein Backstory · v0.3 · November 2026</span><span class="fl"><a href="https://biodesign-academy.github.io/">← All open tools and papers</a><a href="https://www.biodesign.academy">biodesign.academy</a></span></div>
 </footer>
 
 <script>
@@ -448,33 +526,130 @@ async function find(){
   finally{ $("go").disabled = false; }
 }
 
+async function gather(acc, opts={}){
+  const say = opts.say || (()=>{});
+  const e = await getJSON("https://rest.uniprot.org/uniprotkb/" + acc + ".json");
+  if(e.entryType === "Inactive"){ throw new Error("inactive"); }
+  const xr = e.uniProtKBCrossReferences || [];
+  const embl = xr.filter(x => x.database === "EMBL").slice(0, opts.maxEmbl || 5).map(x => ({
+    id:x.id, mol:(x.properties||[]).find(p=>p.key==="MoleculeType")?.value || ""
+  }));
+  const pdb = xr.filter(x => x.database === "PDB").length;
+  const afdb = xr.some(x => x.database === "AlphaFoldDB");
+  const refs = (e.references||[]).map(r => r.citation || {});
+  if(embl.length) say("Following the trail to the nucleotide record" + (embl.length>1?"s":"") + "…");
+  const ena = [];
+  for(const n of embl){ ena.push({ ...n, rec: await enaLookup(n.id) }); }
+  if(ena.length){
+    say("Reading who submitted the record, and papers that mention it…");
+    ena[0].embl = await enaEmbl(ena[0].id);
+    if(opts.epmc !== false) ena[0].epmc = await epmcMentions(ena[0].id);
+  }
+  return { acc, e, name:proteinName(e), embl:ena, pdb, afdb, refs, date:today() };
+}
+
 async function run(){
   const acc = parseAcc($("acc").value);
-  if(!acc){ $("status").textContent = "That doesn't look like a UniProt accession. Try something like Q6QZR3."; return; }
+  if(!acc){ $("status").textContent = "That doesn't look like a UniProt ID. Try something like Q6QZR3, or type a protein name."; return; }
   $("go").disabled = true; $("status").textContent = "Fetching the UniProt entry…";
-  $("outCard").hidden = true;
+  $("outCard").hidden = true; $("noteCard").hidden = true;
   try{
-    const e = await getJSON("https://rest.uniprot.org/uniprotkb/" + acc + ".json");
-    if(e.entryType === "Inactive"){ throw new Error("inactive"); }
-    const xr = e.uniProtKBCrossReferences || [];
-    const embl = xr.filter(x => x.database === "EMBL").slice(0,5).map(x => ({
-      id:x.id, mol:(x.properties||[]).find(p=>p.key==="MoleculeType")?.value || ""
-    }));
-    const pdb = xr.filter(x => x.database === "PDB").length;
-    const afdb = xr.some(x => x.database === "AlphaFoldDB");
-    const refs = (e.references||[]).map(r => r.citation || {});
-    $("status").textContent = embl.length ? "Following the trail to the nucleotide record" + (embl.length>1?"s":"") + "…" : "";
-    const ena = [];
-    for(const n of embl){ ena.push({ ...n, rec: await enaLookup(n.id) }); }
-    if(ena.length){ $("status").textContent = "Reading who submitted the record, and papers that mention it…"; ena[0].embl = await enaEmbl(ena[0].id); ena[0].epmc = await epmcMentions(ena[0].id); }
-    D = { acc, e, name:proteinName(e), embl:ena, pdb, afdb, refs, date:today() };
+    D = await gather(acc, { say: m => $("status").textContent = m });
     render();
     $("status").textContent = "";
+    try{ history.replaceState(null, "", "?id=" + acc); }catch(_){}
   }catch(err){
     $("status").textContent = String(err.message)==="404" || String(err.message)==="inactive"
       ? "No active UniProt entry found for " + acc + "."
       : "Couldn't reach UniProt from this browser (" + err.message + "). Check your connection and try again.";
   }finally{ $("go").disabled = false; }
+}
+
+/* ---------- plain-language summary, shared by the card and the ledger ---------- */
+const MON = {JAN:"Jan",FEB:"Feb",MAR:"Mar",APR:"Apr",MAY:"May",JUN:"Jun",JUL:"Jul",AUG:"Aug",SEP:"Sep",OCT:"Oct",NOV:"Nov",DEC:"Dec"};
+function shortInst(inst){
+  if(!inst) return "";
+  const parts = inst.split(",").map(s => s.trim()).filter(Boolean);
+  const key = parts.find(p => /universit|institut|college|centre|center|laborator|school|academy|hospital|museum|garden|council|agency|company|inc\b|ltd\b|gmbh|corporation/i.test(p));
+  const country = parts[parts.length-1].replace(/[0-9-]+/g,"").trim();
+  const out = key ? key + (country && !key.includes(country) ? ", " + country : "") : parts.slice(-2).join(", ");
+  return out.replace(/\s+/g," ").trim();
+}
+function summary(d){
+  const e = d.e, o = e.organism || {};
+  const reviewed = (e.entryType||"").includes("Swiss-Prot");
+  const places = [], dates = [];
+  d.embl.forEach(n => { const r = n.rec || {}; const p = r.country || r.geo_loc_name; if(p) places.push(p); if(r.collection_date) dates.push(r.collection_date); });
+  const place = [...new Set(places)].join("; "), date = [...new Set(dates)].join("; ");
+  const n0 = d.embl[0] || {}, em = n0.embl || null;
+  const sub = d.refs.find(c => c.citationType === "submission");
+  const pubs = d.refs.filter(c => c.citationType && c.citationType !== "submission");
+  const inst = em ? shortInst(em.institution) : "";
+  const authors = sub?.authors?.length ? sub.authors.slice(0,2).join(" and ") + (sub.authors.length>2 ? " et al." : "") : "";
+  let year = "";
+  if(em?.submitted){ const m = em.submitted.match(/(\d{4})$/); if(m) year = m[1]; }
+  if(!year && sub?.publicationDate){ const m = String(sub.publicationDate).match(/(\d{4})/); if(m) year = m[1]; }
+  if(!year && pubs[0]?.publicationDate){ const m = String(pubs[0].publicationDate).match(/(\d{4})/); if(m) year = m[1]; }
+  const who = inst || authors || (pubs[0]?.authors?.[0] ? pubs[0].authors[0] + (pubs[0].authors.length>1 ? " et al." : "") : "") || "not recorded";
+  const missing = [];
+  if(!d.embl.length) missing.push("No nucleotide record linked, so place and date can't be followed");
+  else { if(!place) missing.push("Where it was collected"); if(!date) missing.push("When it was collected"); }
+  const ntPubs = em ? em.pubmed.length + em.doi.length : 0;
+  if(!pubs.length && !ntPubs) missing.push("A publication describing the sample");
+  if(!reviewed) missing.push("A curator's check (unreviewed entry)");
+  if(e.proteinDescription?.flag) missing.push("The full sequence (this is a fragment)");
+  const orgTxt = (o.scientificName || "Organism not stated") + (o.commonName ? " (" + o.commonName + ")" : "");
+  const where = d.embl.length
+    ? orgTxt + ". " + (place ? "Collected in " + place : "Place not recorded") + (date ? ", " + date + "." : place ? ". Date not recorded." : ", date not recorded.")
+    : orgTxt + ". No nucleotide record is linked, so place and date can't be followed.";
+  const whoTxt = who === "not recorded" ? "Not recorded." : who + (year ? ", " + year : "") + (inst && authors ? " (" + authors + ")" : "") + ".";
+  return { reviewed, place, date, who, year, authors, inst, missing, where, whoTxt, orgTxt, org:o.scientificName||"", common:o.commonName||"", pubs:pubs.length+ntPubs, mentions:n0.epmc?.n ?? "" };
+}
+function cardLink(acc){ return location.origin + location.pathname.replace(/index\.html$/,"") + "?id=" + acc; }
+function niceDate(iso){ const [y,m,dd] = iso.split("-"); return +dd + " " + Object.values(MON)[+m-1] + " " + y; }
+function creditLine(d, S){
+  return `${d.name} (UniProt ${d.acc}), ${S.org || "organism not stated"}. Recorded by ${S.who === "not recorded" ? "an unrecorded submitter" : S.who}${S.year ? ", " + S.year : ""}. ${S.place ? "Collected in " + S.place + "." : "Collection place not recorded."} Backstory checked ${niceDate(d.date)}: ${cardLink(d.acc)}`;
+}
+
+/* ---------- badge (drawn on a canvas, saved as PNG) ---------- */
+function drawBadge(d, S){
+  const left = "protein backstory", right = (S.place ? "origin: " + S.place : "origin: not recorded") + " · " + niceDate(d.date);
+  const scale = 2, h = 24, pad = 9, font = "600 12px Arial, Helvetica, sans-serif";
+  const c = document.createElement("canvas"), x = c.getContext("2d");
+  x.font = font;
+  const wl = Math.ceil(x.measureText(left).width) + pad*2, wr = Math.ceil(x.measureText(right).width) + pad*2;
+  c.width = (wl+wr)*scale; c.height = h*scale; x.scale(scale, scale);
+  const r = 4;
+  x.fillStyle = "#211D17"; x.beginPath(); x.moveTo(r,0); x.lineTo(wl,0); x.lineTo(wl,h); x.lineTo(r,h); x.arcTo(0,h,0,h-r,r); x.lineTo(0,r); x.arcTo(0,0,r,0,r); x.fill();
+  x.fillStyle = S.place ? "#9DCE2C" : "#E9D9A0"; x.beginPath(); x.moveTo(wl,0); x.lineTo(wl+wr-r,0); x.arcTo(wl+wr,0,wl+wr,r,r); x.lineTo(wl+wr,h-r); x.arcTo(wl+wr,h,wl+wr-r,h,r); x.lineTo(wl,h); x.fill();
+  x.font = font; x.textBaseline = "middle";
+  x.fillStyle = "#F6F1E8"; x.fillText(left, pad, h/2+0.5);
+  x.fillStyle = "#211D17"; x.fillText(right, wl+pad, h/2+0.5);
+  return c.toDataURL("image/png");
+}
+
+/* ---------- the card ---------- */
+function renderCard(){
+  const S = summary(D);
+  D.S = S;
+  $("cardTitle").textContent = D.name;
+  $("cardMeta").innerHTML = `UniProt <span class="mono">${esc(D.acc)}</span><span class="badge${S.reviewed?" rev":""}">${S.reviewed?"Reviewed":"Unreviewed"}</span> · checked ${esc(niceDate(D.date))}`;
+  $("cWhere").innerHTML = esc(S.where).replace(esc(S.org), "<em>" + esc(S.org) + "</em>");
+  $("cWho").textContent = S.whoTxt;
+  $("cMiss").innerHTML = S.missing.length ? `${S.missing.length} thing${S.missing.length>1?"s":""}<ul>${S.missing.map(m=>"<li>"+esc(m)+"</li>").join("")}</ul>` : "Nothing obvious: place, date and a source are all recorded.";
+  $("credit").textContent = creditLine(D, S);
+  D.badge = drawBadge(D, S);
+  $("badgeImg").src = D.badge; $("badgeImg").alt = "Badge: protein backstory, " + (S.place ? "origin " + S.place : "origin not recorded") + ", checked " + niceDate(D.date);
+  const body = `Protein: ${D.name} (UniProt ${D.acc})\nCard: ${cardLink(D.acc)}\n\nWhat do you know about where this protein's organism was collected, why it was sequenced, or who knew it first?\n\n\nSource (a link or reference, so others can check it):\n\n\nMay we credit you by name? (yes / no)\n\nPlease name a community only if a source names it and naming is welcome.`;
+  $("leadLink").href = "https://github.com/biodesign-academy/protein-backstory/issues/new?title=" + encodeURIComponent("Lead: " + D.name + " (" + D.acc + ")") + "&body=" + encodeURIComponent(body);
+  $("cardSec").hidden = false;
+  $("cardSec").scrollIntoView({behavior:"smooth"});
+}
+
+async function copyBtn(btn, text, label){
+  try{ await navigator.clipboard.writeText(text); btn.textContent = "Copied"; }
+  catch(_){ btn.textContent = "Select and copy manually"; }
+  setTimeout(()=>btn.textContent = label, 1600);
 }
 
 function facts(){
@@ -557,15 +732,14 @@ function render(){
   $("lcNote").textContent = F.lc;
   $("f8").innerHTML = "<ul>" + F.gaps.map(g => `<li class="gap">${esc(g)}</li>`).join("") + "</ul>";
   D.F = F;
-  $("noteCard").hidden = false;
-  $("noteCard").scrollIntoView({behavior:"smooth"});
+  renderCard();
 }
 
 function noteText(){
   const F = D.F, o = D.e.organism || {};
   const v = id => $(id).value.trim();
   return `# Protein provenance note: ${D.name} (${D.acc})
-Drafted ${D.date} with Protein Backstory v0.2 (Biodesign Academy, biodesign-academy.github.io/protein-backstory). Method: Kim, R. (2026). Protein Backstory: Provenance Notes for Biodesigners. Zenodo. https://doi.org/10.5281/zenodo.24441516. Fields 1, 2, 3, 6 and 8 are drawn from public records; fields 4 and 7 are written by a person.
+Drafted ${D.date} with Protein Backstory v0.3 (Biodesign Academy). Card: ${cardLink(D.acc)}. Method: Kim, R. (2026). Protein Backstory: Provenance Notes for Biodesigners. Zenodo. https://doi.org/10.5281/zenodo.24441516. Fields 1, 2, 3, 6 and 8 are drawn from public records; fields 4 and 7 are written by a person.
 
 1. The sequence. ${F.f1}
 
@@ -587,7 +761,7 @@ Drafted ${D.date} with Protein Backstory v0.2 (Biodesign Academy, biodesign-acad
 8. Gaps.
 ${F.gaps.map(g => "   - " + g).join("\n")}${v("f8user") ? "\n   - " + v("f8user") : ""}
 
-Not legal advice. Method: Kim, R. (2026), A Protein Provenance Note for Designers, Biodesign Academy Ltd, Zenodo. Licence of this note: CC BY 4.0.
+Not legal advice. Licence of this note: CC BY 4.0.
 `;
 }
 
@@ -609,9 +783,69 @@ Rules:
 - Mention any Local Contexts Notice or Label you find, but never suggest one.`;
 }
 
-function download(name, text){
+/* ---------- the ledger ---------- */
+const ACC_RE = /\b([OPQ][0-9][A-Z0-9]{3}[0-9]|[A-NR-Z][0-9](?:[A-Z][A-Z0-9]{2}[0-9]){1,2})\b/g;
+let LEDGER = [];
+const LCOLS = [
+  ["UniProt ID","acc"],["Protein","name"],["Organism","org"],["Common name","common"],["Reviewed","reviewed"],
+  ["Place recorded","placeYN"],["Collection place","place"],["Collection date","date"],
+  ["Recorded by","who"],["Year","year"],["Publications cited","pubs"],["What's missing","missing"],
+  ["Card","link"],["Checked","checked"]
+];
+function ledgerRow(d){
+  const S = summary(d);
+  return { acc:d.acc, name:d.name, org:S.org, common:S.common, reviewed:S.reviewed?"yes":"no",
+    placeYN:S.place?"yes":"no", place:S.place||"not recorded", date:S.date||"not recorded",
+    who:S.who, year:S.year, pubs:String(S.pubs), missing:S.missing.join("; ") || "nothing obvious",
+    link:cardLink(d.acc), checked:d.date };
+}
+function csvCell(v){ v = String(v ?? ""); return /[",\n]/.test(v) ? '"' + v.replace(/"/g,'""') + '"' : v; }
+function showLedger(){
+  const ok = LEDGER.filter(r => !r.error), n = ok.length;
+  const placed = ok.filter(r => r.placeYN==="yes").length, dated = ok.filter(r => r.date!=="not recorded").length, rev = ok.filter(r => r.reviewed==="yes").length;
+  const bad = LEDGER.length - n;
+  $("ledgerSum").textContent = n
+    ? `${placed} of ${n} protein${n>1?"s":""} ${n===1?"has":"have"} a recorded collection place. ${dated} ${dated===1?"has":"have"} a date. ${rev} ${rev===1?"is":"are"} reviewed by a curator.` + (bad ? ` ${bad} ID${bad>1?"s":""} could not be read.` : "")
+    : "None of these IDs could be read.";
+  $("ledgerTable").innerHTML = "<thead><tr>" + LCOLS.filter(c=>c[1]!=="link"&&c[1]!=="checked").map(c=>"<th>"+esc(c[0])+"</th>").join("") + "</tr></thead><tbody>" +
+    LEDGER.map(r => r.error
+      ? `<tr><td class="mono">${esc(r.acc)}</td><td colspan="11">${esc(r.error)}</td></tr>`
+      : "<tr>" + LCOLS.filter(c=>c[1]!=="link"&&c[1]!=="checked").map(([,k]) => {
+          const v = r[k], cls = (v==="no"||v==="not recorded") ? ' class="no"' : "";
+          return k==="acc" ? `<td class="mono"><a href="${esc(r.link)}" target="_blank" rel="noopener">${esc(v)}</a></td>` : `<td${cls}>${esc(v)}</td>`;
+        }).join("") + "</tr>").join("") + "</tbody>";
+  $("ledgerOut").hidden = false;
+}
+async function makeLedger(){
+  const ids = [...new Set((($("ledgerIn").value || "").toUpperCase().match(ACC_RE)) || [])];
+  if(!ids.length){ $("ledgerStatus").textContent = "No UniProt IDs found. They look like Q6QZR3 or A0A8X6ME07."; return; }
+  const list = ids.slice(0,100);
+  $("ledgerGo").disabled = true; $("ledgerOut").hidden = true; LEDGER = new Array(list.length);
+  let done = 0, i = 0;
+  const say = () => $("ledgerStatus").textContent = `Reading the records: ${done} of ${list.length}…` + (ids.length>100 ? " (only the first 100 IDs are used)" : "");
+  say();
+  async function worker(){
+    while(i < list.length){
+      const k = i++, acc = list[k];
+      try{ LEDGER[k] = ledgerRow(await gather(acc, { epmc:false, maxEmbl:3 })); }
+      catch(err){ LEDGER[k] = { acc, error: String(err.message)==="404"||String(err.message)==="inactive" ? "No active UniProt entry" : "Could not be read just now" }; }
+      done++; say();
+    }
+  }
+  await Promise.all([worker(), worker(), worker()]);
+  $("ledgerStatus").textContent = "";
+  $("ledgerGo").disabled = false;
+  showLedger();
+}
+function ledgerCSV(){
+  const head = LCOLS.map(c => c[0]).join(",");
+  const rows = LEDGER.map(r => r.error ? csvCell(r.acc) + "," + csvCell(r.error) : LCOLS.map(([,k]) => csvCell(r[k])).join(","));
+  return [head, ...rows].join("\n") + "\n";
+}
+
+function download(name, text, type){
   const a = document.createElement("a");
-  a.href = URL.createObjectURL(new Blob([text], {type:"text/markdown"}));
+  a.href = URL.createObjectURL(new Blob([text], {type: type || "text/markdown"}));
   a.download = name; a.click(); URL.revokeObjectURL(a.href);
 }
 
@@ -622,6 +856,15 @@ $("build").onclick = () => { $("out").textContent = noteText(); $("outCard").hid
 $("dl").onclick = () => download(`provenance-note-${D.acc}.md`, $("out").textContent);
 $("copy").onclick = async () => { await navigator.clipboard.writeText($("out").textContent); $("copy").textContent = "Copied"; setTimeout(()=>$("copy").textContent="Copy text",1500); };
 $("copyPrompt").onclick = async () => { await navigator.clipboard.writeText(researchPrompt()); $("copyPrompt").textContent = "Prompt copied: paste it into your AI assistant"; setTimeout(()=>$("copyPrompt").textContent="Copy a research prompt for an AI assistant",2500); };
+$("copyLink").onclick = e => copyBtn(e.currentTarget, cardLink(D.acc), "Copy link to this card");
+$("copyCredit").onclick = e => copyBtn(e.currentTarget, $("credit").textContent, "Copy credit line");
+$("dlBadge").onclick = () => { const a = document.createElement("a"); a.href = D.badge; a.download = `protein-backstory-badge-${D.acc}.png`; a.click(); };
+$("dlNote").onclick = () => download(`protein-backstory-${D.acc}.md`, noteText());
+$("openNote").onclick = () => { $("noteCard").hidden = false; $("noteCard").scrollIntoView({behavior:"smooth"}); };
+$("ledgerGo").onclick = makeLedger;
+$("ledgerFile").onchange = async ev => { const f = ev.target.files[0]; if(!f) return; $("ledgerIn").value = await f.text(); makeLedger(); };
+$("ledgerDl").onclick = () => download(`provenance-ledger-${today()}.csv`, ledgerCSV(), "text/csv");
+(() => { const id = new URLSearchParams(location.search).get("id"); if(id && parseAcc(id)){ $("acc").value = parseAcc(id); run(); } })();
 </script>
 </body>
 </html>

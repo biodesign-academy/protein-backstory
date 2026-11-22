@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Protein Provenance Note Drafter · Biodesign Academy</title>
+<title>Protein Backstory · Biodesign Academy</title>
 <style>
   :root{--paper:#f6f1e7;--ink:#1f1d1a;--muted:#6b655c;--line:#d9d1c3;--coral:#e8735a;--lime:#b9cf5a;--card:#fffdf8;--warn:#9a4b1c}
   *{box-sizing:border-box}
@@ -39,8 +39,9 @@
 <body>
 <div class="bar"></div>
 <header>
-  <h1>Protein Provenance Note Drafter</h1>
-  <p>Paste a UniProt accession. The facts are fetched from the public records; you add the two parts only a person can: who knew it first, and what goes back.</p>
+  <h1>Protein Backstory</h1>
+  <p style="font-size:19px;color:#1f1d1a;margin:0 0 8px">Where your protein came from, and who it's owed to.</p>
+  <p>Paste a protein's UniProt ID and Protein Backstory drafts a provenance note. The facts come from public records. You add the two parts only a person can: who knew it first, and what goes back.</p>
 </header>
 <main>
   <div class="card">
@@ -239,7 +240,7 @@ function noteText(){
   const F = D.F, o = D.e.organism || {};
   const v = id => $(id).value.trim();
   return `# Protein provenance note: ${D.name} (${D.acc})
-Drafted ${D.date} with the Protein Provenance Note Drafter v0.1 (Biodesign Academy). Fields 1, 2, 3, 6 and 8 are drawn from public records; fields 4 and 7 are written by a person.
+Drafted ${D.date} with Protein Backstory v0.1 (Biodesign Academy, raphael-biodesign.github.io/protein-backstory). Fields 1, 2, 3, 6 and 8 are drawn from public records; fields 4 and 7 are written by a person.
 
 1. The sequence. ${F.f1}
 

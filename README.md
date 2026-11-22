@@ -1,8 +1,10 @@
-# Protein Provenance Note Drafter
+# Protein Backstory
 
-A free web tool from [Biodesign Academy](https://biodesign.academy) that drafts a **provenance note** for any protein in UniProt.
+*Where your protein came from, and who it's owed to.*
 
-**Use it:** https://raphael-biodesign.github.io/provenance-note-drafter/
+A free web tool from [Biodesign Academy](https://biodesign.academy) for designers working with living matter. Give it any protein in UniProt and it drafts a **provenance note**: where the protein came from, who recorded it, what is missing, and who it may be owed to.
+
+**Use it:** https://raphael-biodesign.github.io/protein-backstory/
 
 ## What it does
 

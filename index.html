@@ -80,6 +80,10 @@
   .spec.foot{padding:14px 0 0;border-top:1px solid var(--ink)}
   .spec.foot a{font:500 14px var(--sans);letter-spacing:0;text-transform:none}
   @media (max-width:640px){header{padding-top:36px} h1{font-size:32px} h1 em{font-size:34px} .steps{grid-template-columns:1fr} .steps li+li{padding-left:0;border-left:0;border-top:1px solid var(--hair)} .row{flex-direction:column} .card{padding:20px} .field.yours{margin:0 -20px;padding:18px 20px}}
+  .paper{margin:18px 0 0;font:400 15px/1.5 var(--sans);color:var(--slate)}
+  .paper .paper-k{font:500 12px var(--mono);letter-spacing:.04em;margin-right:8px}
+  .paper a{color:var(--ink);text-decoration-thickness:1px;text-underline-offset:3px}
+  .paper .paper-doi{font:400 13px var(--mono);margin-left:8px;white-space:nowrap}
   .hero{max-width:1200px;margin:14px auto 0;padding:0 24px}
   .hero-art{display:block;width:100%;height:auto;border:0;background:none;overflow:visible}
   .hero-art .flow{animation:pb-flow 9s linear infinite}
@@ -216,6 +220,7 @@
   <h1>Protein <em>Backstory</em></h1>
   <p class="sub">Where your protein came from, and who it's owed to.</p>
   <p class="intro">Every protein in a public database came from a living thing, a place and, often, people who knew it long before science did. The database rarely tells you. Protein Backstory gathers what the records do say, shows what is missing, and leaves room for what only you can add.</p>
+  <p class="paper"><span class="paper-k">The paper</span> <a href="https://doi.org/10.5281/zenodo.24441516">Protein Backstory: Provenance Notes for Biodesigners</a> <span class="paper-doi">doi:10.5281/zenodo.24441516</span></p>
 </header>
 
 <main>
@@ -281,7 +286,7 @@
 </main>
 
 <footer>
-  <p class="small">Method: Kim, R. (2026). <em>A Protein Provenance Note for Designers.</em> Biodesign Academy Ltd. Zenodo (forthcoming). Data from UniProt (CC BY 4.0) and the European Nucleotide Archive, fetched live in your browser; nothing is sent to Biodesign Academy. Not legal advice: it does not decide whether any use is permitted.</p>
+  <p class="small">Method: Kim, R. (2026). <em>Protein Backstory: Provenance Notes for Biodesigners</em> (v1.0). Zenodo. <a href="https://doi.org/10.5281/zenodo.24441516">doi:10.5281/zenodo.24441516</a>. Data from UniProt (CC BY 4.0) and the European Nucleotide Archive, fetched live in your browser; nothing is sent to Biodesign Academy. Not legal advice: it does not decide whether any use is permitted.</p>
   <div class="spec foot"><span>Protein Backstory · v0.1 · November 2026</span><a href="https://biodesign.academy">biodesign.academy</a></div>
 </footer>
 
@@ -430,7 +435,7 @@ function noteText(){
   const F = D.F, o = D.e.organism || {};
   const v = id => $(id).value.trim();
   return `# Protein provenance note: ${D.name} (${D.acc})
-Drafted ${D.date} with Protein Backstory v0.1 (Biodesign Academy, raphael-biodesign.github.io/protein-backstory). Fields 1, 2, 3, 6 and 8 are drawn from public records; fields 4 and 7 are written by a person.
+Drafted ${D.date} with Protein Backstory v0.1 (Biodesign Academy, raphael-biodesign.github.io/protein-backstory). Method: Kim, R. (2026). Protein Backstory: Provenance Notes for Biodesigners. Zenodo. https://doi.org/10.5281/zenodo.24441516. Fields 1, 2, 3, 6 and 8 are drawn from public records; fields 4 and 7 are written by a person.
 
 1. The sequence. ${F.f1}
 

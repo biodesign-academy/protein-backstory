@@ -6,6 +6,8 @@ A free web tool from [Biodesign Academy](https://biodesign.academy) for designer
 
 **Use it:** https://raphael-biodesign.github.io/protein-backstory/
 
+**The paper:** Kim, R. (2026). *Protein Backstory: Provenance Notes for Biodesigners* (v1.0). Zenodo. https://doi.org/10.5281/zenodo.24441516
+
 ## What it does
 
 Paste a UniProt accession (for example `Q6QZR3`, mussel foot protein 5). The tool fetches the public records in your browser and fills in the facts:
@@ -33,6 +35,10 @@ Then download the note as a text file.
 ## Data sources
 
 UniProt (CC BY 4.0) and the European Nucleotide Archive (EMBL-EBI).
+
+## How to cite
+
+Kim, R. (2026). *Protein Backstory: Provenance Notes for Biodesigners* (v1.0). Zenodo. https://doi.org/10.5281/zenodo.24441516
 
 ## Licence
 

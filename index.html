@@ -82,6 +82,21 @@
   ul{padding-left:18px;margin:4px 0 0}
   li.gap{margin:2px 0}
   .small{font:14px/1.6 var(--sans);color:var(--slate);margin:0 0 10px}
+  .tries{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:14px}
+  button.chip{background:transparent;color:var(--ink);border:1px solid var(--hair);border-radius:999px;padding:7px 12px;font:500 13px/1 var(--sans)}
+  button.chip:hover{background:var(--stock2);border-color:var(--ink)}
+  .results{margin-top:18px;border-top:1px solid var(--ink)}
+  .results .rh{font:500 11px/1.4 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--slate);margin:12px 0 4px}
+  .res{display:grid;grid-template-columns:1fr auto;gap:4px 16px;align-items:center;padding:12px 0;border-bottom:1px solid var(--hair)}
+  .res .nm{font:600 15px/1.35 var(--mono);letter-spacing:-.01em}
+  .res .meta{font:14px/1.5 var(--sans);color:var(--slate)}
+  .res .meta em{color:var(--ink)}
+  .res .acc{font:400 12.5px var(--mono);color:var(--slate)}
+  .res .badge{font:500 11px/1.7 var(--sans);border:1px solid var(--hair);padding:0 7px;border-radius:4px;margin-left:6px;white-space:nowrap}
+  .res .badge.rev{background:var(--lime);border-color:var(--ink);color:var(--ink)}
+  .res button{grid-row:1 / span 2;grid-column:2}
+  .results .more{font:14px/1.5 var(--sans);color:var(--slate);margin:12px 0 0}
+  @media (max-width:640px){.res{grid-template-columns:1fr}.res button{grid-row:3;grid-column:1;justify-self:start;margin-top:6px}}
   .status{font:14px/1.5 var(--sans);margin-top:12px;color:var(--slate)}
   .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
   .actions.end{border-top:1px solid var(--ink);padding-top:18px;margin-top:4px}
@@ -239,7 +254,7 @@
 
 <main>
   <ol class="steps" aria-label="How it works">
-    <li><span class="n">01</span><strong>Paste an ID</strong><span>Each protein in UniProt has a short ID, such as Q6QZR3.</span></li>
+    <li><span class="n">01</span><strong>Name your protein</strong><span>Type it in plain words, like spider silk, or paste a UniProt ID if you have one.</span></li>
     <li><span class="n">02</span><strong>Read the record</strong><span>We fetch what the public databases say, and list what they leave out.</span></li>
     <li><span class="n">03</span><strong>Add what only you can</strong><span>Who knew it first, and what goes back. Then keep the note.</span></li>
   </ol>
@@ -247,13 +262,20 @@
   <section class="card" aria-labelledby="findTitle">
     <p class="eyebrow">01 · Find your protein</p>
     <h2 id="findTitle">Which protein?</h2>
-    <label for="acc">UniProt ID or link</label>
+    <label for="acc">Protein name, organism, or UniProt ID</label>
     <div class="row">
-      <input id="acc" placeholder="for example Q6QZR3" autocomplete="off">
-      <button id="go">Draft note</button>
+      <input id="acc" placeholder="for example spider silk, mussel glue, or Q6QZR3" autocomplete="off">
+      <button id="go">Find</button>
     </div>
-    <p class="small help">Don't know the ID? Search the protein or organism name on <a href="https://www.uniprot.org" target="_blank" rel="noopener">uniprot.org</a> and copy the code from the Entry column.</p>
-    <div class="actions"><button class="ghost" id="example">Try an example: mussel glue protein</button></div>
+    <p class="small help">No ID needed: type what you know in plain words. If you already have a UniProt ID (a short code such as Q6QZR3), paste it and the note is drafted straight away.</p>
+    <div class="tries" aria-label="Try a search"><span class="small">Try:</span>
+      <button class="chip" data-q="spider silk">spider silk</button>
+      <button class="chip" data-q="mussel foot protein">mussel glue</button>
+      <button class="chip" data-q="green fluorescent protein">green fluorescent protein</button>
+      <button class="chip" data-q="hydrophobin">fungal hydrophobin</button>
+      <button class="chip" data-q="cellulose synthase Komagataeibacter">bacterial cellulose</button>
+    </div>
+    <div id="results" class="results" hidden aria-live="polite"></div>
     <div class="status" id="status" role="status"></div>
   </section>
 
@@ -380,6 +402,43 @@ async function epmcMentions(acc){
 function proteinName(e){
   const d = e.proteinDescription || {};
   return d.recommendedName?.fullName?.value || d.submissionNames?.[0]?.fullName?.value || d.alternativeNames?.[0]?.fullName?.value || "Unnamed protein";
+}
+
+async function searchProteins(q){
+  const fields = "accession,protein_name,organism_name,length,reviewed";
+  const base = "https://rest.uniprot.org/uniprotkb/search?format=json&fields=" + fields + "&query=";
+  const get = async (query, size) => { const r = await fetch(base + encodeURIComponent(query) + "&size=" + size); if(!r.ok) throw new Error("search"); const j = await r.json(); return { items: j.results || [], total: +(r.headers.get("x-total-results") || (j.results||[]).length) }; };
+  const rev = await get("(" + q + ") AND (reviewed:true)", 6);
+  let un = { items: [], total: 0 };
+  if(rev.items.length < 6) un = await get("(" + q + ") AND (reviewed:false)", 6 - rev.items.length);
+  return { items: [...rev.items, ...un.items], total: rev.total + un.total };
+}
+
+function showResults(q, res){
+  const box = $("results");
+  if(!res.items.length){
+    box.innerHTML = `<p class="more">Nothing found for "${esc(q)}". Try fewer or simpler words, an English name, or the organism's Latin name.</p>`;
+    box.hidden = false; return;
+  }
+  box.innerHTML = `<p class="rh">Pick the closest match</p>` + res.items.map(r => {
+    const o = r.organism || {}, rev = (r.entryType||"").includes("Swiss-Prot");
+    const len = r.sequence?.length;
+    return `<div class="res"><div class="nm">${esc(proteinName(r))}<span class="badge${rev ? " rev" : ""}">${rev ? "Reviewed" : "Unreviewed"}</span></div>
+      <button class="ghost pick" data-acc="${esc(r.primaryAccession)}">Use this</button>
+      <div class="meta"><em>${esc(o.scientificName || "")}</em>${o.commonName ? " (" + esc(o.commonName) + ")" : ""}${len ? " · " + len + " residues" : ""} · <span class="acc">${esc(r.primaryAccession)}</span></div></div>`;
+  }).join("") + `<p class="more">The closest ${res.items.length} matches. Reviewed entries have been checked by a curator, so they come first. Not the one you meant? Add the organism to your search, for example "silk Nephila", or a Latin name.</p>`;
+  box.hidden = false;
+  box.querySelectorAll(".pick").forEach(b => b.onclick = () => { $("acc").value = b.dataset.acc; box.hidden = true; run(); });
+}
+
+async function find(){
+  const v = $("acc").value.trim();
+  if(!v){ $("status").textContent = "Type a protein name, an organism, or a UniProt ID."; return; }
+  if(parseAcc(v) && /^\s*(https?:\/\/\S*uniprot\S*|[A-Z0-9]{6,10})\s*$/i.test(v)) return run();
+  $("go").disabled = true; $("status").textContent = "Searching UniProt…"; $("results").hidden = true;
+  try{ showResults(v, await searchProteins(v)); $("status").textContent = ""; }
+  catch(e){ $("status").textContent = "Couldn't reach UniProt just now. Check your connection and try again."; }
+  finally{ $("go").disabled = false; }
 }
 
 async function run(){
@@ -549,9 +608,9 @@ function download(name, text){
   a.download = name; a.click(); URL.revokeObjectURL(a.href);
 }
 
-$("go").onclick = run;
-$("acc").addEventListener("keydown", e => { if(e.key==="Enter") run(); });
-$("example").onclick = () => { $("acc").value = "Q6QZR3"; run(); };
+$("go").onclick = find;
+$("acc").addEventListener("keydown", e => { if(e.key==="Enter") find(); });
+document.querySelectorAll(".chip").forEach(c => c.onclick = () => { $("acc").value = c.dataset.q; find(); });
 $("build").onclick = () => { $("out").textContent = noteText(); $("outCard").hidden = false; $("outCard").scrollIntoView({behavior:"smooth"}); };
 $("dl").onclick = () => download(`provenance-note-${D.acc}.md`, $("out").textContent);
 $("copy").onclick = async () => { await navigator.clipboard.writeText($("out").textContent); $("copy").textContent = "Copied"; setTimeout(()=>$("copy").textContent="Copy text",1500); };

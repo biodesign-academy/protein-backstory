@@ -2,7 +2,7 @@
 
 *Where your protein came from, and who it's owed to.*
 
-A free web tool from [Biodesign Academy](https://biodesign.academy) for designers working with living matter. Give it any protein in UniProt and it drafts a **provenance note**: where the protein came from, who recorded it, what is missing, and who it may be owed to.
+A free web tool from [Biodesign Academy](https://biodesign.academy) for designers working with living matter. Give it any protein in UniProt, by name or ID, and it drafts a **provenance note**: where the protein came from, who recorded it, what is missing, and who it may be owed to.
 
 **Use it:** https://biodesign-academy.github.io/protein-backstory/
 
@@ -10,7 +10,7 @@ A free web tool from [Biodesign Academy](https://biodesign.academy) for designer
 
 ## What it does
 
-Paste a UniProt accession (for example `Q6QZR3`, mussel foot protein 5). The tool fetches the public records in your browser and fills in the facts:
+Type a protein in plain words (for example `spider silk` or `mussel glue`) and pick the closest match, or paste a UniProt accession if you have one (for example `Q6QZR3`, mussel foot protein 5). Reviewed entries are listed first. The tool then fetches the public records in your browser and fills in the facts:
 
 1. **The sequence**: name, accession, length, fragment, reviewed or not, protein existence level, structures
 2. **The organism**: species, and where and when the original sample was collected, from the linked nucleotide record (or "not recorded")

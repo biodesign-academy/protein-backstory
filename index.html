@@ -81,7 +81,7 @@
   .spec.foot a{font:500 14px var(--sans);letter-spacing:0;text-transform:none}
   @media (max-width:640px){header{padding-top:36px} h1{font-size:32px} h1 em{font-size:34px} .steps{grid-template-columns:1fr} .steps li+li{padding-left:0;border-left:0;border-top:1px solid var(--hair)} .row{flex-direction:column} .card{padding:20px} .field.yours{margin:0 -20px;padding:18px 20px}}
   .hero{max-width:1200px;margin:14px auto 0;padding:0 24px}
-  .hero-art{display:block;width:100%;height:auto;border:1px solid var(--ink);background:var(--stock)}
+  .hero-art{display:block;width:100%;height:auto;border:0;background:none;overflow:visible}
   .hero-art .flow{animation:pb-flow 9s linear infinite}
   .hero-art .cell{transform-box:fill-box;transform-origin:center;animation:pb-breathe 8s ease-in-out infinite}
   .hero-art .bead{animation:pb-glow 6s ease-in-out infinite}
@@ -113,14 +113,11 @@
   <radialGradient id="gL"><stop offset="0" stop-color="#9DCE2C" stop-opacity=".6"/><stop offset=".65" stop-color="#9DCE2C" stop-opacity=".26"/><stop offset="1" stop-color="#9DCE2C" stop-opacity="0"/></radialGradient>
   <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse"><path d="M48 0H0V48" fill="none" stroke="#211D17" stroke-opacity=".06" stroke-width="1"/></pattern>
 </defs>
-<rect width="1200" height="440" fill="#F6F1E8"/>
-<rect width="1200" height="440" fill="url(#grid)"/>
 <g filter="url(#wash)">
   <ellipse cx="250" cy="230" rx="290" ry="200" fill="url(#gL)"/>
   <ellipse cx="560" cy="210" rx="300" ry="180" fill="url(#gM)"/>
   <ellipse cx="900" cy="215" rx="300" ry="210" fill="url(#gS)"/>
 </g>
-<rect width="1200" height="440" filter="url(#grain)"/>
 
 <path d="M11,20H29M20,11V29" stroke="#211D17" stroke-opacity=".4" stroke-width="1"/>
 <path d="M1171,20H1189M1180,11V29" stroke="#211D17" stroke-opacity=".4" stroke-width="1"/>

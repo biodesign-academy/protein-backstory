@@ -13,14 +13,11 @@
   <radialGradient id="gL"><stop offset="0" stop-color="#9DCE2C" stop-opacity=".6"/><stop offset=".65" stop-color="#9DCE2C" stop-opacity=".26"/><stop offset="1" stop-color="#9DCE2C" stop-opacity="0"/></radialGradient>
   <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse"><path d="M48 0H0V48" fill="none" stroke="#211D17" stroke-opacity=".06" stroke-width="1"/></pattern>
 </defs>
-<rect width="1200" height="440" fill="#F6F1E8"/>
-<rect width="1200" height="440" fill="url(#grid)"/>
 <g filter="url(#wash)">
   <ellipse cx="250" cy="230" rx="290" ry="200" fill="url(#gL)"/>
   <ellipse cx="560" cy="210" rx="300" ry="180" fill="url(#gM)"/>
   <ellipse cx="900" cy="215" rx="300" ry="210" fill="url(#gS)"/>
 </g>
-<rect width="1200" height="440" filter="url(#grain)"/>
 
 <path d="M11,20H29M20,11V29" stroke="#211D17" stroke-opacity=".4" stroke-width="1"/>
 <path d="M1171,20H1189M1180,11V29" stroke="#211D17" stroke-opacity=".4" stroke-width="1"/>
